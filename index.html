@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stefano Herrera</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #191A1B;
+            --surface: #212223;
+            --text-color: #F7F6F1;
+            --text-muted: #bbb7aa;
+            --gold: #CABA91;
+            --gold-light: #DFD6AC;
+            --gold-dark: #AEA065;
+            --border: #22231f;
+            --section-title: #DFD1A7;
+            --card-bg: rgba(33,34,35, 0.96);
+            --card-border: #272724;
+            --shadow: 0 4px 32px -12px #0000002a;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #FAF9F7;
+            --surface: #fff;
+            --text-color: #181a1c;
+            --text-muted: #A39B7B;
+            --gold: #B79C4C;
+            --gold-light: #E8DEB0;
+            --gold-dark: #A88F3A;
+            --border: #e5dfcb;
+            --section-title: #AB8937;
+            --card-bg: #F9F7F3;
+            --card-border: #ece3d2;
+            --shadow: 0 8px 44px -18px #e0c7761a;
+        }
+
+        body[data-theme="light"] .profile-info h1 { color: var(--text-color); }
+
+        @media (max-width: 700px) {
+            .profile-info h1 { font-weight: 800; }
+            .item-link { font-weight: 600; }
+            .section-title { font-weight: 600; }
+        }
+
+        html, body {
+            padding: 0; margin: 0;
+            min-height: 100vh;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            font-size: 17px;
+            letter-spacing: 0.01em;
+            line-height: 1.7;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 520px;
+            margin: 20px auto 0 auto;
+            padding: 20px 18px 12px 18px;
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .profile-image {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--gold);
+            background: transparent;
+            box-shadow: none;
+        }
+
+        .profile-info h1 {
+            font-size: 1.9rem;
+            font-weight: 800;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            letter-spacing: -0.02em;
+            word-spacing: -0.04em;
+            line-height: 1.08;
+            margin: 0 0 2px 0;
+            color: var(--gold);
+        }
+
+        .profile-info p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            font-family: inherit;
+            font-weight: 500;
+            margin: 2px 0 0 0;
+            line-height: 1.35;
+            letter-spacing: 0.01em;
+        }
+
+        .section {
+            margin-bottom: 14px;
+        }
+
+        .section-title {
+            font-size: 0.72rem;
+            font-family: 'Fira Mono', monospace;
+            color: var(--gold-dark);
+            letter-spacing: 0.12em;
+            margin-bottom: 3px;
+            font-weight: 600;
+            text-transform: uppercase;
+            opacity: 0.85;
+        }
+
+        .item {
+            background: transparent;
+            border-radius: 0;
+            box-shadow: none;
+            border: none;
+            padding: 6px 0 6px 0;
+            margin-bottom: 0;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .item:last-child { border-bottom: none; }
+
+        .item-link {
+            color: var(--text-color);
+            font-weight: 600;
+            text-decoration: none;
+            font-family: 'Fira Mono', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 0.01em;
+            transition: color 0.18s, opacity 0.18s;
+            opacity: 0.95;
+        }
+
+        .item-link:hover,
+        .item-link:focus {
+            color: var(--gold);
+            text-decoration: underline;
+            outline: none;
+            opacity: 1;
+        }
+
+        .item-company, .item-time {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-family: 'Fira Mono', monospace;
+            font-weight: 400;
+            margin-top: 0;
+            margin-bottom: 0;
+            opacity: 0.72;
+            display: inline-block;
+        }
+        .item-time {
+            float: right;
+            font-size: 0.78rem;
+            color: var(--gold-dark);
+            font-weight: 500;
+            opacity: 0.8;
+        }
+
+        .item-description {
+            margin: 3px 0 0 0;
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            opacity: 0.74;
+            letter-spacing: 0.01em;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .contact-links {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+
+        .contact-links a {
+            color: var(--gold);
+            font-family: 'Fira Mono', monospace;
+            font-weight: 600;
+            font-size: 0.88rem;
+            text-decoration: none;
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            opacity: 0.92;
+            transition: color 0.18s, opacity 0.18s;
+        }
+        .contact-links a:hover,
+        .contact-links a:focus {
+            color: var(--gold-light);
+            opacity: 1;
+            outline: none;
+            text-decoration: underline;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            background: transparent;
+            border: 1px solid var(--card-border);
+            color: var(--gold);
+            padding: 8px 14px;
+            border-radius: 22px;
+            cursor: pointer;
+            font-size: 1.05rem;
+            font-family: inherit;
+            font-weight: 600;
+            transition: background 0.18s, border-color 0.18s, color 0.18s;
+            box-shadow: none;
+            z-index: 3;
+            opacity: .95;
+        }
+
+        .theme-toggle:hover,
+        .theme-toggle:focus {
+            background: var(--gold);
+            color: var(--bg-color);
+            border-color: var(--gold-dark);
+            outline: none;
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                margin: 6px 0 0 0;
+                max-width: 96vw;
+            }
+            .theme-toggle { top: 10px; right: 10px; padding: 9px 16px; font-size: 1.1rem; }
+            .profile-section { flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+            .profile-image { width: 72px; height: 72px; }
+            .profile-info h1 { font-size: 2rem; letter-spacing: -0.02em; word-spacing: -0.04em; line-height: 1.08; }
+            .profile-info p { font-size: 0.9rem; line-height: 1.35; margin-top: 1px; }
+            .section { margin-bottom: 10px; }
+            .section-title { margin-bottom: 3px; font-size: 0.78rem; letter-spacing: 0.14em; }
+            .item { padding: 5px 0; border-bottom: 1px solid var(--card-border); }
+            .item-description { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 0.9rem; }
+            .item-time { float: none; display: block; margin-top: 2px; font-size: 0.84rem; opacity: 0.8; }
+            .contact-links { justify-content: center; gap: 12px; }
+        }
+        @media (max-width: 480px) {
+            .container { padding: 8px 4vw 4px 4vw; }
+            .profile-section { flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+            .contact-links { justify-content: center; }
+            .profile-info h1 { font-size: 1.8rem; }
+            .item-link { font-size: 0.99rem; }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle">
+        <span id="themeIcon">☀</span>
+    </button>
+    <div class="container">
+        <div class="profile-section">
+            <img src="profile.jpg" alt="Stefano Herrera" class="profile-image">
+            <div class="profile-info">
+                <h1>Stefano Herrera</h1>
+                <p>Building · Computer Science @ NJIT</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Experience</div>
+            <div class="item">
+                <a href="https://www.anara.com/?via=1l5mdppz" target="_blank" class="item-link">Anara</a>
+                <span class="item-time">Mar 2025 – Apr 2025</span>
+                <span class="item-company">(YC Spring '24)</span>
+                <div class="item-description">Growth Intern — social strategy, acquisition and marketing.</div>
+            </div>
+            <div class="item">
+                <span class="item-link">New Jersey Institute of Technology</span>
+                <span class="item-time">Jan 2025 – May 2025</span>
+                <span class="item-company">Student Junior Developer</span>
+                <div class="item-description"> Collaborated with upperclassmen to build modern web features.</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Projects</div>
+            <div class="item">
+                <a href="https://lynkbooking.web.app/" target="_blank" class="item-link">LYNK</a>
+                <span class="item-time">Full Stack</span>
+                <div class="item-description">Campus room booking for NJIT.</div>
+            </div>
+            <div class="item">
+                <a href="https://lynkbooking.web.app/" target="_blank" class="item-link">Schedule Builder</a>
+                <span class="item-time">React / Next.js</span>
+                <div class="item-description">Modern schedule builder for NJIT students (private beta).</div>
+            </div>
+            <div class="item">
+                <a href="https://www.instagram.com/emprende_y_cambia/" target="_blank" class="item-link">Emprende y Cambia</a>
+                <span class="item-time">Social / Content</span>
+                <div class="item-description">Entrepreneurship and motivation community.</div>
+            </div>
+            <div class="item">
+                <a href="https://www.youtube.com/@interspaceyt/videos/" target="_blank" class="item-link">Interspace</a>
+                <span class="item-time">Content</span>
+                <div class="item-description">Space-themed educational YouTube channel.</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Contact</div>
+            <div class="contact-links">
+                <a href="mailto:contact@herrerastefano.com">Email</a>
+                <a href="https://www.linkedin.com/in/stefano-herrera/" target="_blank">LinkedIn</a>
+                <a href="https://instagram.com/sstefanoherrera" target="_blank">Instagram</a>
+            </div>
+        </div>
+
+        <div style="font-size:.85em;color:var(--text-muted);text-align:center;margin:18px 0 3px 0;opacity:.7;">
+            © <span id="year"></span> Stefano Herrera
+        </div>
+    </div>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+
+        function setTheme(mode) {
+            if (mode === 'light') {
+                body.setAttribute('data-theme', 'light');
+                themeIcon.textContent = '☽';
+            } else {
+                body.removeAttribute('data-theme');
+                themeIcon.textContent = '☀';
+            }
+            localStorage.setItem('theme', mode);
+        }
+        setTheme(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            setTheme(body.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+        });
+    </script>
+</body>
+</html>
